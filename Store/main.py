@@ -229,7 +229,11 @@ def delete_processed_agent_data(processed_agent_data_id: int):
             wdata.update({str(i): wdata.pop(str(i+1))})
     with open(adress, "w") as f:
         json.dump(json.dumps(wdata), f, indent=4)
-    return setglobdata({str(processed_agent_data_id):temp})[0]
+    return ProcessedAgentDataInDB(id = processed_agent_data_id,
+    road_state = temp[0],x = temp[1], y = temp[2], z = temp[3], 
+    latitude = temp[4], longitude = temp[5], parking = temp[6], 
+    parking_latitude = temp[7], parking_longitude = temp[8],
+    timestamp = datetime.strptime(temp[9], "%Y-%m-%d %H:%M:%S.%f"))
 
 
 @app.delete(
