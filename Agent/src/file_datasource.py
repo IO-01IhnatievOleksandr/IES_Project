@@ -36,7 +36,8 @@ class FileDatasource:
                 Accelerometer(t1[0], t1[1], t1[2]),
                 Gps(t2[0], t2[1]),
                 Parking(t5[0], Gps(t4[0], t4[1])),
-                datetime.strptime(t3[0], "%Y-%m-%d %H:%M:%S.%f")
+                datetime.fromisoformat(t3[0])
+                # datetime.strptime(t3[0], "%Y-%m-%d %H:%M:%S.%f")
         )
     
     def startReading(self, *args, **kwargs):

@@ -136,7 +136,8 @@ def setglobdata(data : dict):
         x = data[istr][1], y = data[istr][2], z = data[istr][3], 
         latitude = data[istr][4], longitude = data[istr][5],
         parking = data[istr][6], parking_latitude = data[istr][7], parking_longitude = data[istr][8],
-        timestamp = datetime.strptime(data[istr][9], "%Y-%m-%d %H:%M:%S.%f")))
+        timestamp = datetime.fromisoformat(data[istr][9])))
+        # datetime.strptime(data[istr][9], "%Y-%m-%d %H:%M:%S.%f")))
     return globdata
 
 
@@ -165,7 +166,7 @@ async def create_processed_agent_data(data: List[ProcessedAgentData]):
     with open(adress, "w") as f:
         json.dump(json.dumps(wdata), f, indent=4)
     # Send data to subscribers
-    send_data_to_subscribers(wdata)
+    send_data_to_subscribers(data)
 
 
 @app.get(
@@ -233,7 +234,8 @@ def delete_processed_agent_data(processed_agent_data_id: int):
     road_state = temp[0],x = temp[1], y = temp[2], z = temp[3], 
     latitude = temp[4], longitude = temp[5], parking = temp[6], 
     parking_latitude = temp[7], parking_longitude = temp[8],
-    timestamp = datetime.strptime(temp[9], "%Y-%m-%d %H:%M:%S.%f"))
+    timestamp = datetime.fromisoformat(temp[9]))
+    # datetime.strptime(temp[9], "%Y-%m-%d %H:%M:%S.%f"))
 
 
 @app.delete(

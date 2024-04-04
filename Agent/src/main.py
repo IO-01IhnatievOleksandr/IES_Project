@@ -1,9 +1,13 @@
 from paho.mqtt import client as mqtt_client
 import json
 import time
+import logging
 from schema.aggregated_data_schema import AggregatedDataSchema
 from file_datasource import FileDatasource
 import config
+
+
+print("TURN ON AGENT")
 
 
 def connect_mqtt(broker, port):
@@ -23,6 +27,7 @@ def connect_mqtt(broker, port):
 
 
 def publish(client, topic, datasource, delay):
+    logging.info("PUBLISH")
     datasource.startReading()
     while True:
         time.sleep(delay)
@@ -36,8 +41,8 @@ def publish(client, topic, datasource, delay):
         # result: [0, 1]
         status = result[0]
         if status == 0:
-            pass
-            # print(f"Send `{msg}` to topic `{topic}`")
+            logging.info(f"Send `{msg}` to topic `{topic}`")
+            print(f"Send `{msg}` to topic `{topic}`")
         else:
             print(f"Failed to send message to topic {topic}")
 
